@@ -1,16 +1,19 @@
 package com.bandtec.projeto.lista.desafio3;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.ArrayList;
 
 public class Faculdade {
 
     private String nome;
     private List<Aluno> alunos;
+    private Integer qtdAlunosMatriculaCancelada;
 
     public Faculdade(String nome) {
         this.nome = nome;
-        this.alunos = new ArrayList();
+        this.alunos = new ArrayList<>();
+        this.qtdAlunosMatriculaCancelada = 0;
     }
 
     /*
@@ -18,7 +21,16 @@ public class Faculdade {
         retorne false;
      */
     public Boolean existsAlunoPorNome(String nome) {
-        return null;
+        if (Objects.isNull(nome)) {
+            return false;
+        } else {
+            for(Aluno aluno : this.alunos) {
+                if (aluno.getNome().equalsIgnoreCase(nome)) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
     /*
@@ -26,7 +38,9 @@ public class Faculdade {
         possuir um aluno com o nome informado, não deve matricular;
      */
     public void matricularAluno(Aluno aluno) {
-
+        if (Objects.nonNull(aluno) && !existsAlunoPorNome(aluno.getNome())) {
+            this.alunos.add(aluno);
+        }
     }
 
     /*
@@ -34,14 +48,22 @@ public class Faculdade {
         um aluno com o RA informado, não faça nada.
      */
     public void cancelarMatricula(String ra) {
-
+        if (Objects.nonNull(ra)) {
+            for (int i = 0; i < this.alunos.size(); i++) {
+                Aluno aluno = this.alunos.get(i);
+                if (aluno.getRa().equals(ra)) {
+                    this.alunos.remove(i);
+                    this.qtdAlunosMatriculaCancelada++;
+                }
+            }
+        }
     }
 
     /*
         Deve retornar a quantidade de alunos contidos na lista (matriculados);
      */
     public Integer getQuantidadeAlunos() {
-        return null;
+        return this.alunos.size();
     }
 
     /*
@@ -49,14 +71,25 @@ public class Faculdade {
         que estão no semestre informado;
      */
     public Integer getQuantidadeAlunosPorSemestre(Integer semestre) {
-        return null;
+        if (Objects.isNull(semestre)){
+            return 0;
+        }
+
+        Integer quantidadeAlunosPorSemestre = 0;
+
+        for(Aluno aluno : this.alunos) {
+            if (aluno.getSemestre().equals(semestre)) {
+                quantidadeAlunosPorSemestre++;
+            }
+        }
+        return quantidadeAlunosPorSemestre;
     }
 
     /*
         Deve retornar a quantidade de alunos com matricula cancelada (contidos na lista);
      */
     public Integer getQuantidadeAlunosComMatriculaCancelada() {
-        return null;
+        return this.qtdAlunosMatriculaCancelada;
     }
 
     public String getNome() {

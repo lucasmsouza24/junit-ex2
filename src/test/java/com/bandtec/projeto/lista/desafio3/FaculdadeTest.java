@@ -132,6 +132,7 @@ public class FaculdadeTest {
     
     @Test
     public void testGetQuantidadeAlunosComMatriculaCanceladaQuandoAcionadoEListaPossui1AlunoComMatriculaCanceladaDeveRetornar1() {
+        System.out.println("uepa2");
         Faculdade instance = new Faculdade("Bandtec");
         this.matricularAlunos(instance);
         instance.cancelarMatricula("#2");
